@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анализ Spotify треков - Курсовая работа</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>🎵 Анализ Spotify треков</h1>
+        <p>Курсовая работа по статистическому моделированию</p>
+    </header>
+
+    <div class="content">
+        <!-- Раздел 1: Информация о датасете -->
+        <div class="section" id="section-data">
+            <h2>📊 Информация о датасете</h2>
+            <div class="controls">
+                <button class="button" onclick="loadDataInfo()">Загрузить информацию</button>
+            </div>
+            <div class="loading" id="loading-info">
+                <div class="spinner"></div>
+                <p>Загрузка данных...</p>
+            </div>
+            <div id="data-info"></div>
+        </div>
+
+        <!-- Раздел 2: Вопрос 1 - Распределения -->
+        <div class="section" id="section-distributions">
+            <h2>📈 Вопрос 1: Распределение признаков</h2>
+            <p style="margin-bottom: 15px; color: #666;">Анализ распределения громкости, темпа и танцевальности</p>
+            <div class="controls">
+                <button class="button" onclick="analyzeDistributions()">Анализировать распределения</button>
+            </div>
+            <div class="loading" id="loading-dist">
+                <div class="spinner"></div>
+                <p>Анализ данных...</p>
+            </div>
+            <div id="distributions-result"></div>
+        </div>
+
+        <!-- Раздел 3: Вопрос 2 - Корреляции -->
+        <div class="section" id="section-correlations">
+            <h2>🔗 Вопрос 2: Влияние на популярность</h2>
+            <p style="margin-bottom: 15px; color: #666;">Какие аудио-фичи влияют на популярность трека?</p>
+            <div class="controls">
+                <button class="button" onclick="analyzeCorrelations()">Анализировать корреляции</button>
+            </div>
+            <div class="loading" id="loading-corr">
+                <div class="spinner"></div>
+                <p>Вычисление корреляций...</p>
+            </div>
+            <div id="correlations-result"></div>
+        </div>
+
+        <!-- Раздел 4: Вопрос 3 - Жанры -->
+        <div class="section" id="section-genres">
+            <h2>🎸 Вопрос 3: Различия между жанрами</h2>
+            <p style="margin-bottom: 15px; color: #666;">Чем отличаются треки разных жанров?</p>
+            <div class="controls">
+                <button class="button" onclick="analyzeGenres()">Анализировать жанры</button>
+            </div>
+            <div class="loading" id="loading-genres">
+                <div class="spinner"></div>
+                <p>Анализ жанров...</p>
+            </div>
+            <div id="genres-result"></div>
+        </div>
+
+        <!-- Раздел 5: График 1 - Scatter -->
+        <div class="section" id="section-scatter">
+            <h2>📊 График 1: Темп vs Популярность</h2>
+            <div class="controls">
+                <button class="button" onclick="loadScatterPlot()">Построить график</button>
+            </div>
+            <div class="loading" id="loading-scatter">
+                <div class="spinner"></div>
+                <p>Построение графика...</p>
+            </div>
+            <div id="scatter-plot"></div>
+        </div>
+
+        <!-- Раздел 6: График 2 - Histogram -->
+        <div class="section" id="section-histogram">
+            <h2>📊 График 2: Распределение громкости</h2>
+            <div class="controls">
+                <button class="button" onclick="loadHistogram()">Построить гистограмму</button>
+            </div>
+            <div class="loading" id="loading-histogram">
+                <div class="spinner"></div>
+                <p>Построение гистограммы...</p>
+            </div>
+            <div id="histogram-plot"></div>
+        </div>
+
+        <!-- Раздел 7: График 3 - Heatmap -->
+        <div class="section" id="section-heatmap">
+            <h2>📊 График 3: Тепловая карта корреляций</h2>
+            <div class="controls">
+                <button class="button" onclick="loadHeatmap()">Построить тепловую карту</button>
+            </div>
+            <div class="loading" id="loading-heatmap">
+                <div class="spinner"></div>
+                <p>Построение тепловой карты...</p>
+            </div>
+            <div id="heatmap-plot"></div>
+        </div>
+
+        <!-- Раздел 8: Модель регрессии -->
+        <div class="section" id="section-model">
+            <h2>🤖 Модель регрессии популярности</h2>
+            <p style="margin-bottom: 15px; color: #666;">Обучение модели для предсказания популярности треков</p>
+            <div class="controls">
+                <button class="button" onclick="trainModel()">Обучить модель</button>
+                <button class="button" onclick="loadModelMetrics()"
+                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    Показать метрики
+                </button>
+            </div>
+            <div class="loading" id="loading-model">
+                <div class="spinner"></div>
+                <p>Обучение модели (это может занять 1-2 минуты)...</p>
+            </div>
+            <div id="model-result"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Курсовая работа по статистическому моделированию | Spotify Tracks Dataset</p>
+        <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.7;">
+            Dataset: <a href="https://www.kaggle.com/datasets/zaheenhamidani/ultimate-spotify-tracks-db" target="_blank">
+            Kaggle - Ultimate Spotify Tracks DB
+        </a>
+        </p>
+    </footer>
+</div>
+
+<!-- JavaScript -->
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/components/dataInfo.js"></script>
+<script src="js/components/distributions.js"></script>
+<script src="js/components/correlations.js"></script>
+<script src="js/components/genres.js"></script>
+<script src="js/components/plots.js"></script>
+<script src="js/components/model.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
