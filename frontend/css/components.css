@@ -4,29 +4,30 @@
 
 /* Section */
 .section {
-    margin-bottom: 50px;
-    padding: 30px;
-    background: #f8f9fa;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 28px;
+    padding: 20px 22px;
+    background: #f9fafb;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
+
 .section h2 {
-    color: #1DB954;
-    margin-bottom: 20px;
-    font-size: 1.8em;
-    border-bottom: 3px solid #1DB954;
-    padding-bottom: 10px;
+    font-size: 1.4em;
+    margin-bottom: 14px;
+    border-bottom: 2px solid #1DB954;
+    padding-bottom: 6px;
 }
+
 
 /* Button */
 .button {
     background: linear-gradient(135deg, #1DB954 0%, #1ed760 100%);
     color: white;
     border: none;
-    padding: 15px 30px;
-    font-size: 1.1em;
-    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 0.95em;
+    border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
@@ -154,8 +155,9 @@
 
 /* Metric Card */
 .metric-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: #ffffff;
+    color: #333;
+    border: 1px solid #e0e0e0;
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
@@ -176,6 +178,7 @@
     font-size: 2em;
     font-weight: bold;
     margin: 10px 0;
+    color: #1DB954;
 }
 
 .metric-label {
