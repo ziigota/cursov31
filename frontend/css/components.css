@@ -1,46 +1,55 @@
-/**
- * Стили компонентов
- */
-
 /* Section */
 .section {
-    margin-bottom: 28px;
-    padding: 20px 22px;
-    background: #f9fafb;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    margin-bottom: 50px;
+    padding: 30px;
+    background: #f8f9fa;
+    border-radius: 0;
+    box-shadow: none;
+    border: 2px solid #000;
+    transition: all 0.3s ease;
 }
 
+.section:hover {
+    border-color: #8ACE00;
+}
 
 .section h2 {
-    font-size: 1.4em;
-    margin-bottom: 14px;
-    border-bottom: 2px solid #1DB954;
-    padding-bottom: 6px;
+    color: #000;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    border-bottom: 3px solid #000;
+    padding-bottom: 10px;
+    font-weight: 900;
+    letter-spacing: -1px;
 }
 
+.section p {
+    color: #666;
+}
 
 /* Button */
 .button {
-    background: linear-gradient(135deg, #1DB954 0%, #1ed760 100%);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 0.95em;
-    border-radius: 20px;
+    background: #000;
+    color: #8ACE00;
+    border: 2px solid #000;
+    padding: 12px 24px;
+    font-size: 1em;
+    border-radius: 0;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
-    font-weight: bold;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: none;
+    transition: all 0.2s ease;
 }
 
 .button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(29, 185, 84, 0.4);
+    background: #8ACE00;
+    color: #000;
+    border-color: #000;
 }
 
 .button:active {
-    transform: translateY(0);
+    transform: scale(0.98);
 }
 
 .controls {
@@ -54,13 +63,15 @@
 .result {
     margin-top: 20px;
     padding: 20px;
-    background: white;
-    border-radius: 10px;
-    border-left: 5px solid #1DB954;
+    background: #fff;
+    border-radius: 0;
+    border-left: 5px solid #000;
+    border: 2px solid #000;
 }
 
 .result.error {
-    border-left-color: #f44336;
+    border-left-color: #000;
+    background: #ffe6e6;
 }
 
 /* Stats Grid */
@@ -73,23 +84,24 @@
 
 /* Stat Card */
 .stat-card {
-    background: white;
+    background: #fff;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    border-top: 4px solid #1DB954;
+    border-radius: 0;
+    box-shadow: none;
+    border: 2px solid #000;
     transition: transform 0.3s ease;
 }
 
 .stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(-3px);
+    border-color: #8ACE00;
 }
 
 .stat-card h3 {
-    color: #333;
+    color: #000;
     margin-bottom: 15px;
     font-size: 1.2em;
+    font-weight: 900;
 }
 
 .stat-item {
@@ -109,21 +121,21 @@
 }
 
 .stat-value {
-    color: #1DB954;
+    color: #000;
     font-weight: bold;
 }
 
 /* Info Box */
 .info-box {
-    background: #e8f5e9;
-    border-left: 4px solid #4caf50;
+    background: #f8f9fa;
+    border-left: 4px solid #000;
     padding: 15px;
     margin: 15px 0;
-    border-radius: 5px;
+    border-radius: 0;
 }
 
 .info-box p {
-    color: #2e7d32;
+    color: #333;
     line-height: 1.6;
     margin-bottom: 10px;
 }
@@ -141,8 +153,9 @@
 .plot-container img {
     max-width: 100%;
     height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 0;
+    box-shadow: none;
+    border: 2px solid #000;
 }
 
 /* Metrics Container */
@@ -155,35 +168,35 @@
 
 /* Metric Card */
 .metric-card {
-    background: #ffffff;
-    color: #333;
-    border: 1px solid #e0e0e0;
+    background: #000;
+    color: #8ACE00;
     padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    border-radius: 0;
+    box-shadow: none;
     transition: transform 0.3s ease;
+    border: 2px solid #000;
 }
 
 .metric-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
+    background: #8ACE00;
+    color: #000;
 }
 
 .metric-card h3 {
     font-size: 1.3em;
     margin-bottom: 15px;
-    opacity: 0.9;
+    font-weight: 900;
 }
 
 .metric-value {
     font-size: 2em;
     font-weight: bold;
     margin: 10px 0;
-    color: #1DB954;
 }
 
 .metric-label {
     font-size: 0.9em;
-    opacity: 0.8;
 }
 
 /* Feature Importance */
@@ -198,27 +211,28 @@
 .feature-name {
     color: #333;
     margin-bottom: 5px;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 0.95em;
 }
 
 .bar {
-    background: #e0e0e0;
+    background: #f0f0f0;
     height: 25px;
-    border-radius: 12px;
+    border-radius: 0;
     overflow: hidden;
     position: relative;
+    border: 2px solid #000;
 }
 
 .bar-fill {
-    background: linear-gradient(90deg, #1DB954 0%, #1ed760 100%);
+    background: #000;
     height: 100%;
     transition: width 1s ease;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     padding-right: 10px;
-    color: white;
+    color: #8ACE00;
     font-size: 0.85em;
     font-weight: bold;
 }

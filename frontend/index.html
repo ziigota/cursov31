@@ -15,14 +15,14 @@
 <body>
 <div class="container">
     <header>
-        <h1>🎵 Анализ Spotify треков</h1>
+        <h1>Анализ Spotify треков</h1>
         <p>Курсовая работа по статистическому моделированию</p>
     </header>
 
     <div class="content">
         <!-- Раздел 1: Информация о датасете -->
         <div class="section" id="section-data">
-            <h2>📊 Информация о датасете</h2>
+            <h2>Информация о датасете</h2>
             <div class="controls">
                 <button class="button" onclick="loadDataInfo()">Загрузить информацию</button>
             </div>
@@ -33,9 +33,8 @@
             <div id="data-info"></div>
         </div>
 
-        <!-- Раздел 2: Вопрос 1 - Распределения -->
         <div class="section" id="section-distributions">
-            <h2>📈 Вопрос 1: Распределение признаков</h2>
+            <h2>Распределение признаков</h2>
             <p style="margin-bottom: 15px; color: #666;">Анализ распределения громкости, темпа и танцевальности</p>
             <div class="controls">
                 <button class="button" onclick="analyzeDistributions()">Анализировать распределения</button>
@@ -47,9 +46,8 @@
             <div id="distributions-result"></div>
         </div>
 
-        <!-- Раздел 3: Вопрос 2 - Корреляции -->
         <div class="section" id="section-correlations">
-            <h2>🔗 Вопрос 2: Влияние на популярность</h2>
+            <h2>Влияние на популярность</h2>
             <p style="margin-bottom: 15px; color: #666;">Какие аудио-фичи влияют на популярность трека?</p>
             <div class="controls">
                 <button class="button" onclick="analyzeCorrelations()">Анализировать корреляции</button>
@@ -61,9 +59,8 @@
             <div id="correlations-result"></div>
         </div>
 
-        <!-- Раздел 4: Вопрос 3 - Жанры -->
         <div class="section" id="section-genres">
-            <h2>🎸 Вопрос 3: Различия между жанрами</h2>
+            <h2>Различия между жанрами</h2>
             <p style="margin-bottom: 15px; color: #666;">Чем отличаются треки разных жанров?</p>
             <div class="controls">
                 <button class="button" onclick="analyzeGenres()">Анализировать жанры</button>
@@ -75,9 +72,8 @@
             <div id="genres-result"></div>
         </div>
 
-        <!-- Раздел 5: График 1 - Scatter -->
         <div class="section" id="section-scatter">
-            <h2>📊 График 1: Темп vs Популярность</h2>
+            <h2>Темп vs Популярность</h2>
             <div class="controls">
                 <button class="button" onclick="loadScatterPlot()">Построить график</button>
             </div>
@@ -88,9 +84,8 @@
             <div id="scatter-plot"></div>
         </div>
 
-        <!-- Раздел 6: График 2 - Histogram -->
         <div class="section" id="section-histogram">
-            <h2>📊 График 2: Распределение громкости</h2>
+            <h2>Распределение громкости</h2>
             <div class="controls">
                 <button class="button" onclick="loadHistogram()">Построить гистограмму</button>
             </div>
@@ -101,9 +96,8 @@
             <div id="histogram-plot"></div>
         </div>
 
-        <!-- Раздел 7: График 3 - Heatmap -->
         <div class="section" id="section-heatmap">
-            <h2>📊 График 3: Тепловая карта корреляций</h2>
+            <h2>Тепловая карта корреляций</h2>
             <div class="controls">
                 <button class="button" onclick="loadHeatmap()">Построить тепловую карту</button>
             </div>
@@ -114,16 +108,12 @@
             <div id="heatmap-plot"></div>
         </div>
 
-        <!-- Раздел 8: Модель регрессии -->
         <div class="section" id="section-model">
-            <h2>🤖 Модель регрессии популярности</h2>
-            <p style="margin-bottom: 15px; color: #666;">Обучение модели для предсказания популярности треков</p>
+            <h2>Модель регрессии популярности</h2>
+            <p>Обучение модели для предсказания популярности треков</p>
             <div class="controls">
                 <button class="button" onclick="trainModel()">Обучить модель</button>
-                <button class="button" onclick="loadModelMetrics()"
-                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                    Показать метрики
-                </button>
+                <button class="button" onclick="loadModelMetrics()">Показать метрики</button>
             </div>
             <div class="loading" id="loading-model">
                 <div class="spinner"></div>
