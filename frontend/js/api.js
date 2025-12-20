@@ -99,6 +99,25 @@ class APIClient {
     getModelMetrics() {
         return this.get(CONFIG.ENDPOINTS.MODEL_METRICS);
     }
+    async predictPopularity(features) {
+        try {
+            const response = await $.ajax({
+                url: `${CONFIG.API_URL}/model/predict`,
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(features),
+                timeout: 10000
+            });
+
+            return { success: true, data: response };
+        } catch (error) {
+            console.error('Ошибка предсказания:', error);
+            return {
+                success: false,
+                error: error.responseJSON?.detail || error.statusText || 'Ошибка предсказания'
+            };
+        }
+    }
 }
 
 // Создание глобального экземпляра API клиента

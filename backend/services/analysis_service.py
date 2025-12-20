@@ -1,7 +1,3 @@
-"""
-Сервис для статистического анализа данных
-Анализ распределений, корреляций, жанров
-"""
 import pandas as pd
 import numpy as np
 from typing import Dict, List
@@ -9,21 +5,10 @@ from backend.config import AUDIO_FEATURES, DISTRIBUTION_FEATURES
 
 
 class AnalysisService:
-    """Сервис для статистического анализа музыкальных данных"""
 
     @staticmethod
     def analyze_distributions(df: pd.DataFrame, features: List[str] = None) -> Dict:
-        """
-        ВОПРОС 1: Анализ распределений признаков
-        Как распределены громкость, темп, танцевальность?
 
-        Args:
-            df: Датафрейм с данными
-            features: Список признаков для анализа (по умолчанию loudness, tempo, danceability)
-
-        Returns:
-            dict: Статистики распределений и их интерпретация
-        """
         if features is None:
             features = DISTRIBUTION_FEATURES
 
@@ -57,17 +42,7 @@ class AnalysisService:
 
     @staticmethod
     def analyze_correlations(df: pd.DataFrame, target: str = 'popularity') -> Dict:
-        """
-        ВОПРОС 2: Анализ корреляций признаков с целевой переменной
-        Какие аудио-фичи влияют на популярность трека?
 
-        Args:
-            df: Датафрейм с данными
-            target: Целевая переменная (по умолчанию 'popularity')
-
-        Returns:
-            dict: Корреляции, топ признаки и интерпретация
-        """
         available_features = [f for f in AUDIO_FEATURES if f in df.columns]
 
         if target not in df.columns:
@@ -103,16 +78,7 @@ class AnalysisService:
 
     @staticmethod
     def analyze_genres(df: pd.DataFrame) -> Dict:
-        """
-        ВОПРОС 3: Анализ различий между жанрами
-        Чем отличаются треки разных жанров?
 
-        Args:
-            df: Датафрейм с данными
-
-        Returns:
-            dict: Статистики по жанрам и их интерпретация
-        """
         if 'genre' not in df.columns:
             raise ValueError("Колонка 'genre' не найдена в датасете")
 
@@ -162,16 +128,7 @@ class AnalysisService:
 
     @staticmethod
     def get_correlation_matrix(df: pd.DataFrame, features: List[str] = None) -> pd.DataFrame:
-        """
-        Получить корреляционную матрицу для построения heatmap
 
-        Args:
-            df: Датафрейм с данными
-            features: Список признаков (по умолчанию все аудио-признаки + popularity)
-
-        Returns:
-            pd.DataFrame: Корреляционная матрица
-        """
         if features is None:
             features = AUDIO_FEATURES + ['popularity']
 
@@ -184,15 +141,7 @@ class AnalysisService:
 
     @staticmethod
     def get_summary_statistics(df: pd.DataFrame) -> Dict:
-        """
-        Получить общую сводную статистику по всем числовым колонкам
 
-        Args:
-            df: Датафрейм с данными
-
-        Returns:
-            dict: Сводная статистика
-        """
         numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
 
         summary = {}

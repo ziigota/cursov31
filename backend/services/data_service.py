@@ -1,7 +1,4 @@
-"""
-Сервис для работы с данными
-Загрузка датасета и предоставление доступа к данным
-"""
+
 import pandas as pd
 import logging
 from typing import Optional
@@ -11,22 +8,14 @@ logger = logging.getLogger(__name__)
 
 
 class DataService:
-    """Сервис для загрузки и работы с датасетом Spotify"""
+
 
     def __init__(self):
         self.df: Optional[pd.DataFrame] = None
         self._loaded = False
 
     def load_dataset(self, path: Path) -> bool:
-        """
-        Загрузить датасет из CSV файла
 
-        Args:
-            path: Путь к CSV файлу
-
-        Returns:
-            bool: Успешно ли загружен датасет
-        """
         try:
             self.df = pd.read_csv(path)
             self._loaded = True
@@ -46,16 +35,11 @@ class DataService:
         return self._loaded and self.df is not None
 
     def get_dataframe(self) -> Optional[pd.DataFrame]:
-        """Получить весь датафрейм"""
+
         return self.df
 
     def get_info(self) -> dict:
-        """
-        Получить информацию о датасете
 
-        Returns:
-            dict: Словарь с информацией о размере, колонках, пропущенных значениях
-        """
         if not self.is_loaded():
             raise ValueError("Датасет не загружен")
 
@@ -69,15 +53,7 @@ class DataService:
         }
 
     def get_column(self, column: str) -> pd.Series:
-        """
-        Получить одну колонку из датасета
 
-        Args:
-            column: Название колонки
-
-        Returns:
-            pd.Series: Данные колонки
-        """
         if not self.is_loaded():
             raise ValueError("Датасет не загружен")
 
@@ -87,15 +63,7 @@ class DataService:
         return self.df[column]
 
     def get_columns(self, columns: list) -> pd.DataFrame:
-        """
-        Получить несколько колонок из датасета
 
-        Args:
-            columns: Список названий колонок
-
-        Returns:
-            pd.DataFrame: Данные указанных колонок
-        """
         if not self.is_loaded():
             raise ValueError("Датасет не загружен")
 
@@ -107,15 +75,7 @@ class DataService:
         return self.df[available_columns]
 
     def get_statistics(self, column: str) -> dict:
-        """
-        Получить статистику по колонке
 
-        Args:
-            column: Название колонки
-
-        Returns:
-            dict: Статистические метрики
-        """
         if not self.is_loaded():
             raise ValueError("Датасет не загружен")
 

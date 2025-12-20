@@ -331,6 +331,68 @@ class ModelService:
             "features_count": len(self.feature_names) if self.feature_names else 0
         }
 
+    # ========== НОВЫЕ МЕТОДЫ ДЛЯ ПРЕДСКАЗАНИЯ ==========
+
+    def is_trained(self) -> bool:
+        """
+        Проверить, обучена ли модель
+
+        Returns:
+            bool: True если модель обучена
+        """
+        return self.rf_model is not None and self.metrics is not None
+
+    def predict_single(self, features: Dict) -> Dict:
+        """
+        Предсказать популярность для одного трека
+
+        Args:
+            features: Словарь с аудио-характеристиками
+
+        Returns:
+            dict: Результат предсказания с интерпретацией
+        """
+        if not self.is_trained():
+            raise ValueError("Модель не обучена")
+
+        # Проверяем что все нужные признаки присутствуют
+        if not self.feature_names:
+            raise ValueError("Список признаков не определён")
+
+        # Создаём DataFrame из входных данных
+        input_df = pd.DataFrame([features])
+
+        # Проверяем наличие всех признаков
+        missing_features = set(self.feature_names) - set(input_df.columns)
+        if missing_features:
+            raise ValueError(f"Отсутствуют признаки: {missing_features}")
+
+        # Выбираем только нужные признаки в правильном порядке
+        input_df = input_df[self.feature_names]
+
+        # Заполняем возможные NaN медианой (на всякий случай)
+        input_df = input_df.fillna(input_df.median())
+
+        # Делаем предсказание лучшей моделью
+        if self.best_model == "Random Forest":
+            prediction = self.rf_model.predict(input_df)[0]
+            model_used = "Random Forest"
+        else:
+            prediction = self.lr_model.predict(input_df)[0]
+            model_used = "Linear Regression"
+
+        # Ограничиваем значение от 0 до 100
+        prediction = float(max(0, min(100, prediction)))
+
+        logger.info(f"Предсказание для трека: {prediction:.2f} (модель: {model_used})")
+
+        return {
+            "predicted_popularity": prediction,
+            "model_used": model_used,
+            "feature_importance": self.metrics.get('feature_importance', {}),
+            "input_features": features
+        }
+
 
 # Глобальный экземпляр сервиса
 model_service = ModelService()

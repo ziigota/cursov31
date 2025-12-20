@@ -1,7 +1,4 @@
-"""
-Сервис для генерации визуализаций
-Создание графиков: scatter, histogram, heatmap
-"""
+
 import pandas as pd
 import matplotlib
 matplotlib.use('Agg')  # Backend без GUI
@@ -16,19 +13,10 @@ warnings.filterwarnings('ignore')
 
 
 class PlotService:
-    """Сервис для создания визуализаций данных"""
 
     @staticmethod
     def _fig_to_base64(fig: plt.Figure) -> str:
-        """
-        Конвертировать matplotlib фигуру в base64 строку
 
-        Args:
-            fig: Matplotlib фигура
-
-        Returns:
-            str: Base64 строка с изображением в формате data:image/png;base64,...
-        """
         buffer = BytesIO()
         fig.savefig(buffer, format='png', bbox_inches='tight', dpi=100)
         buffer.seek(0)
@@ -39,19 +27,7 @@ class PlotService:
     @staticmethod
     def create_scatter_plot(df: pd.DataFrame, x: str, y: str,
                             sample_size: int = 5000) -> str:
-        """
-        ГРАФИК 1: Создать scatter plot
-        Визуализация зависимости между двумя переменными
 
-        Args:
-            df: Датафрейм с данными
-            x: Признак для оси X (по умолчанию tempo)
-            y: Признак для оси Y (по умолчанию popularity)
-            sample_size: Размер выборки для отображения (для производительности)
-
-        Returns:
-            str: Base64 изображение
-        """
         if x not in df.columns or y not in df.columns:
             raise ValueError(f"Колонки '{x}' или '{y}' не найдены в датасете")
 
@@ -95,18 +71,7 @@ class PlotService:
 
     @staticmethod
     def create_histogram(df: pd.DataFrame, column: str, bins: int = 50) -> str:
-        """
-        ГРАФИК 2: Создать гистограмму распределения
-        Визуализация распределения значений признака
 
-        Args:
-            df: Датафрейм с данными
-            column: Колонка для анализа (по умолчанию loudness)
-            bins: Количество столбцов в гистограмме
-
-        Returns:
-            str: Base64 изображение
-        """
         if column not in df.columns:
             raise ValueError(f"Колонка '{column}' не найдена в датасете")
 
@@ -160,16 +125,6 @@ class PlotService:
 
     @staticmethod
     def create_heatmap(corr_matrix: pd.DataFrame) -> str:
-        """
-        ГРАФИК 3: Создать тепловую карту корреляций
-        Визуализация корреляций между всеми признаками
-
-        Args:
-            corr_matrix: Корреляционная матрица (из analysis_service)
-
-        Returns:
-            str: Base64 изображение
-        """
         # Создаём фигуру
         fig, ax = plt.subplots(figsize=(14, 12))
 
@@ -207,18 +162,8 @@ class PlotService:
     @staticmethod
     def create_feature_importance_plot(features: list, importances: list,
                                        top_n: int = 10) -> str:
-        """
-        Создать график важности признаков (для ML модели)
 
-        Args:
-            features: Список названий признаков
-            importances: Список значений важности
-            top_n: Количество топ признаков для отображения
-
-        Returns:
-            str: Base64 изображение
-        """
-        # Создаём DataFrame для удобства
+        # Создаём DataFrame
         importance_df = pd.DataFrame({
             'feature': features,
             'importance': importances
@@ -257,18 +202,7 @@ class PlotService:
     @staticmethod
     def create_comparison_plot(y_true, y_pred_lr, y_pred_rf,
                                sample_size: int = 1000) -> str:
-        """
-        Создать график сравнения предсказаний моделей
 
-        Args:
-            y_true: Истинные значения
-            y_pred_lr: Предсказания Linear Regression
-            y_pred_rf: Предсказания Random Forest
-            sample_size: Размер выборки для отображения
-
-        Returns:
-            str: Base64 изображение
-        """
         # Создаём фигуру с двумя подграфиками
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 7))
 

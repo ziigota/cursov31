@@ -8,6 +8,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/navigation.css">
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -18,6 +19,17 @@
         <h1>Анализ Spotify треков</h1>
         <p>Курсовая работа по статистическому моделированию</p>
     </header>
+
+    <!-- НАВИГАЦИЯ -->
+    <nav class="navigation">
+        <a href="#section-data" class="nav-link">Датасет</a>
+        <a href="#section-distributions" class="nav-link">Распределения</a>
+        <a href="#section-correlations" class="nav-link">Корреляции</a>
+        <a href="#section-genres" class="nav-link">Жанры</a>
+        <a href="#section-plots" class="nav-link">Графики</a>
+        <a href="#section-model" class="nav-link">Модель</a>
+        <a href="#section-predict" class="nav-link">Предсказание</a>
+    </nav>
 
     <div class="content">
         <!-- Раздел 1: Информация о датасете -->
@@ -72,40 +84,45 @@
             <div id="genres-result"></div>
         </div>
 
-        <div class="section" id="section-scatter">
-            <h2>Темп vs Популярность</h2>
-            <div class="controls">
-                <button class="button" onclick="loadScatterPlot()">Построить график</button>
-            </div>
-            <div class="loading" id="loading-scatter">
-                <div class="spinner"></div>
-                <p>Построение графика...</p>
-            </div>
-            <div id="scatter-plot"></div>
-        </div>
+        <!-- Раздел графиков объединён -->
+        <div class="section" id="section-plots">
+            <h2>Визуализации</h2>
 
-        <div class="section" id="section-histogram">
-            <h2>Распределение громкости</h2>
-            <div class="controls">
-                <button class="button" onclick="loadHistogram()">Построить гистограмму</button>
+            <div style="margin-bottom: 40px;">
+                <h3 style="color: #000; font-weight: 700; margin-bottom: 15px;">Темп vs Популярность</h3>
+                <div class="controls">
+                    <button class="button" onclick="loadScatterPlot()">Построить график</button>
+                </div>
+                <div class="loading" id="loading-scatter">
+                    <div class="spinner"></div>
+                    <p>Построение графика...</p>
+                </div>
+                <div id="scatter-plot"></div>
             </div>
-            <div class="loading" id="loading-histogram">
-                <div class="spinner"></div>
-                <p>Построение гистограммы...</p>
-            </div>
-            <div id="histogram-plot"></div>
-        </div>
 
-        <div class="section" id="section-heatmap">
-            <h2>Тепловая карта корреляций</h2>
-            <div class="controls">
-                <button class="button" onclick="loadHeatmap()">Построить тепловую карту</button>
+            <div style="margin-bottom: 40px;">
+                <h3 style="color: #000; font-weight: 700; margin-bottom: 15px;">Распределение громкости</h3>
+                <div class="controls">
+                    <button class="button" onclick="loadHistogram()">Построить гистограмму</button>
+                </div>
+                <div class="loading" id="loading-histogram">
+                    <div class="spinner"></div>
+                    <p>Построение гистограммы...</p>
+                </div>
+                <div id="histogram-plot"></div>
             </div>
-            <div class="loading" id="loading-heatmap">
-                <div class="spinner"></div>
-                <p>Построение тепловой карты...</p>
+
+            <div>
+                <h3 style="color: #000; font-weight: 700; margin-bottom: 15px;">Тепловая карта корреляций</h3>
+                <div class="controls">
+                    <button class="button" onclick="loadHeatmap()">Построить тепловую карту</button>
+                </div>
+                <div class="loading" id="loading-heatmap">
+                    <div class="spinner"></div>
+                    <p>Построение тепловой карты...</p>
+                </div>
+                <div id="heatmap-plot"></div>
             </div>
-            <div id="heatmap-plot"></div>
         </div>
 
         <div class="section" id="section-model">
@@ -120,6 +137,24 @@
                 <p>Обучение модели (это может занять 1-2 минуты)...</p>
             </div>
             <div id="model-result"></div>
+        </div>
+
+        <!-- НОВЫЙ РАЗДЕЛ: Предсказание популярности -->
+        <div class="section" id="section-predict">
+            <h2>Предсказать популярность трека</h2>
+            <p style="margin-bottom: 20px; color: #666;">
+                Введите характеристики трека, и модель предскажет его популярность
+            </p>
+
+            <div id="predict-form-container">
+                <!-- Форма будет показана только после обучения модели -->
+                <div class="info-box" style="text-align: center;">
+                    <p style="font-size: 1.1em;">
+                        <strong>Сначала обучите модель!</strong><br>
+                        Перейдите в раздел "Модель" и нажмите кнопку "Обучить модель"
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -143,6 +178,7 @@
 <script src="js/components/genres.js"></script>
 <script src="js/components/plots.js"></script>
 <script src="js/components/model.js"></script>
+<script src="js/components/predict.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

@@ -10,7 +10,7 @@ router = APIRouter(prefix="/analysis", tags=["Analysis"])
 
 @router.get("/distributions")
 def analyze_distributions():
-    """Анализ распределений громкости, темпа, танцевальности"""
+
     try:
         if not data_service.is_loaded():
             raise HTTPException(status_code=404, detail="Датасет не загружен")
@@ -28,7 +28,7 @@ def analyze_distributions():
 
 @router.get("/correlations")
 def analyze_correlations():
-    """Анализ корреляций между признаками и популярностью"""
+
     try:
         if not data_service.is_loaded():
             raise HTTPException(status_code=404, detail="Датасет не загружен")
@@ -46,7 +46,7 @@ def analyze_correlations():
 
 @router.get("/genres")
 def analyze_genres():
-    """Анализ различий между жанрами"""
+
     try:
         if not data_service.is_loaded():
             raise HTTPException(status_code=404, detail="Датасет не загружен")
