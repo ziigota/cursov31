@@ -41,7 +41,7 @@ const DistributionsComponent = {
 
         // Интерпретация
         html += '<div style="margin-top: 30px;">';
-        html += '<h3>💡 Интерпретация</h3>';
+        html += '<h3>Интерпретация</h3>';
         for (const [feature, interpretation] of Object.entries(data.interpretation)) {
             html += Utils.createInfoBox(`<strong>${feature}:</strong> ${interpretation}`);
         }

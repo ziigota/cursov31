@@ -1,4 +1,8 @@
-
+"""
+Сервис для работы с данными
+Загрузка датасета и предоставление доступа к данным
++ ОЧИСТКА ДАННЫХ (исправление дубликатов жанров)
+"""
 import pandas as pd
 import logging
 from typing import Optional
@@ -8,23 +12,64 @@ logger = logging.getLogger(__name__)
 
 
 class DataService:
-
+    """Сервис для загрузки и работы с датасетом Spotify"""
 
     def __init__(self):
         self.df: Optional[pd.DataFrame] = None
         self._loaded = False
 
-    def load_dataset(self, path: Path) -> bool:
+    def _clean_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Очистка данных от дубликатов и ошибок
 
+        Исправляет:
+        - Unicode апострофы в жанрах (Children's vs Children's)
+        - Лишние пробелы
+        - Различия в регистре
+        """
+        logger.info("Очистка данных...")
+
+        if 'genre' in df.columns:
+            # Сохраняем оригинальное количество уникальных жанров
+            original_genres = df['genre'].nunique()
+            df['genre'] = df['genre'].astype(str)
+            df['genre'] = df['genre'].str.replace('\u2019', "'", regex=False)
+            df['genre'] = df['genre'].str.replace('`', "'", regex=False)
+            df['genre'] = df['genre'].str.replace('ʼ', "'", regex=False)
+            df['genre'] = df['genre'].str.strip()
+            new_genres = df['genre'].nunique()
+            if original_genres != new_genres:
+                logger.info(
+                    f"✓ Исправлены дубликаты жанров: {original_genres} → {new_genres}"
+                )
+        return df
+
+    def load_dataset(self, path: Path) -> bool:
+        """
+        Загрузить датасет из CSV файла
+
+        Args:
+            path: Путь к CSV файлу
+
+        Returns:
+            bool: Успешно ли загружен датасет
+        """
         try:
+            # Загружаем CSV
             self.df = pd.read_csv(path)
+
+            # Очищаем данные
+            self.df = self._clean_data(self.df)
+
             self._loaded = True
             logger.info(f"✓ Датасет загружен: {self.df.shape[0]:,} строк × {self.df.shape[1]} колонок")
             return True
+
         except FileNotFoundError:
             logger.error(f"✗ Файл не найден: {path}")
             self._loaded = False
             return False
+
         except Exception as e:
             logger.error(f"✗ Ошибка загрузки датасета: {e}")
             self._loaded = False
@@ -35,11 +80,16 @@ class DataService:
         return self._loaded and self.df is not None
 
     def get_dataframe(self) -> Optional[pd.DataFrame]:
-
+        """Получить весь датафрейм"""
         return self.df
 
     def get_info(self) -> dict:
+        """
+        Получить информацию о датасете
 
+        Returns:
+            dict: Словарь с информацией о размере, колонках, пропущенных значениях
+        """
         if not self.is_loaded():
             raise ValueError("Датасет не загружен")
 
@@ -53,7 +103,15 @@ class DataService:
         }
 
     def get_column(self, column: str) -> pd.Series:
+        """
+        Получить одну колонку из датасета
 
+        Args:
+            column: Название колонки
+
+        Returns:
+            pd.Series: Данные колонки
+        """
         if not self.is_loaded():
             raise ValueError("Датасет не загружен")
 
@@ -63,7 +121,15 @@ class DataService:
         return self.df[column]
 
     def get_columns(self, columns: list) -> pd.DataFrame:
+        """
+        Получить несколько колонок из датасета
 
+        Args:
+            columns: Список названий колонок
+
+        Returns:
+            pd.DataFrame: Данные указанных колонок
+        """
         if not self.is_loaded():
             raise ValueError("Датасет не загружен")
 
@@ -75,7 +141,15 @@ class DataService:
         return self.df[available_columns]
 
     def get_statistics(self, column: str) -> dict:
+        """
+        Получить статистику по колонке
 
+        Args:
+            column: Название колонки
+
+        Returns:
+            dict: Статистические метрики
+        """
         if not self.is_loaded():
             raise ValueError("Датасет не загружен")
 

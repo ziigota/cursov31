@@ -20,7 +20,7 @@ const DataInfoComponent = {
 
     render(data) {
         let html = '<div class="result">';
-        html += `<h3>📊 Размер датасета: ${data.rows.toLocaleString()} строк × ${data.columns} колонок</h3>`;
+        html += `<h3>Размер датасета: ${data.rows.toLocaleString()} строк × ${data.columns} колонок</h3>`;
 
         html += '<div class="info-box">';
         html += '<p><strong>Признаки:</strong> ' + data.features.join(', ') + '</p>';

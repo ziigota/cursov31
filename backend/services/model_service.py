@@ -17,8 +17,6 @@ logger = logging.getLogger(__name__)
 
 
 class ModelService:
-    """Сервис для обучения и работы с ML моделями"""
-
     def __init__(self):
         self.lr_model: Optional[LinearRegression] = None
         self.rf_model: Optional[RandomForestRegressor] = None
@@ -32,17 +30,6 @@ class ModelService:
 
     def prepare_data(self, df: pd.DataFrame, target: str = 'popularity',
                      features: list = None) -> Tuple:
-        """
-        Подготовить данные для обучения модели
-
-        Args:
-            df: Датафрейм с данными
-            target: Целевая переменная (по умолчанию popularity)
-            features: Список признаков (по умолчанию из config.MODEL_FEATURES)
-
-        Returns:
-            tuple: (X_train, X_test, y_train, y_test, feature_names)
-        """
         try:
             logger.info(f"Подготовка данных. Размер датасета: {df.shape}")
 
@@ -104,20 +91,6 @@ class ModelService:
             raise
 
     def train_models(self, df: pd.DataFrame, target: str = 'popularity') -> Dict:
-        """
-        МОДЕЛЬ: Обучить модели регрессии популярности
-
-        Обучает две модели:
-        1. Linear Regression - базовая линейная модель
-        2. Random Forest Regressor - более сложная ансамблевая модель
-
-        Args:
-            df: Датафрейм с данными
-            target: Целевая переменная
-
-        Returns:
-            dict: Результаты обучения с метриками и информацией
-        """
         try:
             logger.info("="*60)
             logger.info("Начало обучения моделей регрессии")
@@ -220,12 +193,7 @@ class ModelService:
             raise
 
     def get_metrics(self) -> Dict:
-        """
-        Получить метрики обученных моделей
 
-        Returns:
-            dict: Словарь с метриками обеих моделей
-        """
         if self.metrics is None:
             raise ValueError("Модели ещё не обучены. Вызовите train_models() сначала.")
 
@@ -268,15 +236,7 @@ class ModelService:
         return model.predict(features)
 
     def get_feature_importance(self, top_n: int = 10) -> Dict:
-        """
-        Получить важность признаков из Random Forest
 
-        Args:
-            top_n: Количество топ признаков
-
-        Returns:
-            dict: Словарь с важностью признаков
-        """
         if self.metrics is None or 'feature_importance' not in self.metrics:
             raise ValueError("Модель не обучена или feature importance недоступна")
 
@@ -292,13 +252,7 @@ class ModelService:
         }
 
     def get_predictions(self) -> Dict:
-        """
-        Получить предсказания моделей на тестовой выборке
-        (для построения графиков сравнения)
 
-        Returns:
-            dict: Словарь с истинными значениями и предсказаниями
-        """
         if self.y_test is None or self.lr_pred is None or self.rf_pred is None:
             raise ValueError("Модели не обучены")
 
@@ -309,15 +263,7 @@ class ModelService:
         }
 
     def evaluate_model(self, model_name: str = "random_forest") -> Dict:
-        """
-        Получить детальную оценку модели
 
-        Args:
-            model_name: Название модели ("linear_regression" или "random_forest")
-
-        Returns:
-            dict: Детальная информация о модели
-        """
         if self.metrics is None:
             raise ValueError("Модели не обучены")
 
@@ -334,24 +280,11 @@ class ModelService:
     # ========== НОВЫЕ МЕТОДЫ ДЛЯ ПРЕДСКАЗАНИЯ ==========
 
     def is_trained(self) -> bool:
-        """
-        Проверить, обучена ли модель
 
-        Returns:
-            bool: True если модель обучена
-        """
         return self.rf_model is not None and self.metrics is not None
 
     def predict_single(self, features: Dict) -> Dict:
-        """
-        Предсказать популярность для одного трека
 
-        Args:
-            features: Словарь с аудио-характеристиками
-
-        Returns:
-            dict: Результат предсказания с интерпретацией
-        """
         if not self.is_trained():
             raise ValueError("Модель не обучена")
 
